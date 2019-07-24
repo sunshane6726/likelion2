@@ -1,0 +1,20 @@
+
+
+  {% extends 'base.html' %} <!-- 템플릿 상속-->>
+
+  {% block content %}
+    
+
+      {% for blog in blogs.all %}
+      <br>
+      <div class="container">
+        <!-- <a href="{% url 'detail' blog.id %}"> -->
+
+          <h1>{{blog.title}}</h1>
+        </a>         
+        <p> {{ blog.pub_date_pretty }} </p>
+        <p> {{ blog.summary }} <a href="{% url 'detail' blog.id %} ">....more</a> </p> 
+      </div>
+      {% endfor %}
+
+  {% endblock %}
