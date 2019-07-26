@@ -1,67 +1,136 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
+  <head>
+        <script
+        src="http://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+        
+    <!-- Required meta tags -->
+    <meta charset="utf-8"> <!-- 인코딩 방식 글자깨짐방지--> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <!-- 반응형 웹페이를 통해서 한다.-->
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS --> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Hello, world! </title>
+  </head>
+  <body>
+        <div class = "container">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-  <title>BLOG</title>
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <!-- -->
-    <div class="container">
-      <!-- -->
-      <a class="navbar-brand" href="{% url 'home' %}">LIKELION</a> <!-- -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-          <!-- -->
-          <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a> <!-- -->
-          <a class="nav-item nav-link" href="{% url 'new' %}">글쓰기</a>
-          <a class="nav-item nav-link" href="#">Blog</a> <!-- -->
-          <a class="nav-item nav-link" href="#">수료증</a> <!-- -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'welcome' %}">LikeLion</a>
+                    <button class= "navbar-toggler" type= "button" data-toggle= "collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <button type="button" class="btn btn-outline-light btn-lg">
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <ul class="navbar-nav ml-auto">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-primary" href="{% url 'home'%}">Blog</button>
+                                <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{% url 'home'%}">블로그</a>
+                                    <a class="dropdown-item" href="{% url 'nowblog' %}">글쓰기</a>
+                                    <a class="dropdown-item" href="#">미정</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">미정</a>
+                                </div>
+                            </div>
+                        
+                            <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-warning" href="{% url 'portfolio' %}" >Portfolio</button>
+                                    <button type="button" class="btn btn-outline-warning dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{% url 'portfolio' %}">Portfolio</a>
+                                        <a class="dropdown-item" href="#">미정</a>
+                                        <a class="dropdown-item" href="#">미정</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">미정</a>
+                                    </div>
+                            </div>    
+                            
+                            <div class="btn-group">
+                                    <button type="button" class="btn btn-outline-success" href = "#">수료증</button>
+                                    <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">수료증</a>
+                                        <a class="dropdown-item" href="#">미정</a>
+                                        <a class="dropdown-item" href="#">미정</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">미정</a>
+                                    </div>
+                            </div>   
+                            
+                            {% if user.is_authenticated %}
+                            <li class="nav-item dropdown btn btn-outline-info">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">환영합니다. {{ user.username }} 님!</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'nowblog' %}">글쓰기</a>
+                                    <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">로그아웃</a>
+                                    <form id="logout" method="POST" action="{% url 'logout'%}">
+                                        {% csrf_token %} <input type="hidden" />
+                                    </form>
+                                </div>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-item nav-link" href="{% url 'signup' %}">회원가입</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-item nav-link" href="{% url 'login' %}">로그인</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-      </div>
-    </div> 
-  </nav>
+    
+        <div class="container">
+            {% block content %}
 
-  <div class = "container"> 
-      {% block content %}
-      {% endblock %}
-  </div>
+            {% endblock %}
+         </div>
+    <!-- <h1>Hello, world!</h1> -->
 
-<!-- NAVBAR 부분이다.-->
-<!-- 템플릿 상속부분이다.-->
+    <!-- Optional JavaScript 바디태그 밑에 있었야한다. 데이베내용 , 클라우드 등 여러 기호등을 사용하기위해서 사용한다.--> 
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
+    <script src="js/bootstrap.min.js"></script>     
 
-
-
-
-
-
-
-
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
 </body>
-
 </html>
+
+<!-- 
+>템플릿 변수  메소드 키워드를 count, list 등을 궁금하면 찾아보자 
+
+>템플릿 필터 
+>템플릿 태크 
+
+템플릿 주석
+
+>템플릭 상속
+
+src = source의 약자 
+span p div 태그 구별
+
+ -->
+
+
