@@ -5,8 +5,8 @@ from .models import Blog
 from .forms import BlogPost
 
 # Create your views here.
-def welcome(request):
-    return render(request, 'blog/welcome.html')
+def index(request):
+    return render(request, 'blog/index.html')
 
 def home(request):
     blogs = Blog.objects
