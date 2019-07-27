@@ -9,7 +9,7 @@ import accounts.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',blog.views.home, name = 'home'),
+    path('',blog.views.index, name = 'index'),
     path('blog/', include('blog.urls')),  
     path('portfolio/', include('portfolio.urls')),  
     path('accounts/', include('accounts.urls')),

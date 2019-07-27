@@ -11,7 +11,7 @@ urlpatterns = [
     path('newblog/',views.blogpost, name= 'nowblog'),
     path('update/<int:pk>/', views.update, name = 'update'),
     path('delete/<int:pk>/', views.delete, name = 'delete'),
-    path('index/', views.index, name = 'index'),
+    path('home/', views.home, name = 'home'),
 
     
 ] 
